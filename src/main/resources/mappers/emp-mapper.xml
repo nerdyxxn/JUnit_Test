@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Emp">
+	<resultMap type="Emp" id="resultEmp">
+		<!-- property에는 vo의 필드명, column에는 db table의 컬럼명 -->
+		<id property="empno" column="empno" />
+		<result property="ename" column="ename" />
+		<result property="job" column="job" />
+		<result property="deptno" column="deptno" />
+	</resultMap>
+
+	<!-- 부서명, 업무명으로 검색 -->
+	<select id="searchList" parameterType="java.util.HashMap"
+		resultType="arraylist" resultMap="resultEmp">
+		select empno, ename, job, deptno  from emp 
+		where job=#{job}
+		and deptno = #{deptno}
+	</select>
+
+	<!-- 사원 추가 -->
+	<insert id="insertEmp" parameterType="java.util.HashMap">
+		insert into emp (empno, ename, job, deptno)
+		values (#{empno},#{ename},#{job},#{deptno})
+	</insert>
+</mapper>
